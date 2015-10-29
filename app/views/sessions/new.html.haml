@@ -1,0 +1,22 @@
+%h1  Please sign in  
+.divLogIn
+  = form_tag sessions_path do
+    .field
+      = label_tag :email_or_Phone_or_UserName
+      %br/
+      = text_field_tag :user
+    .field
+      = label_tag :password
+      %br/
+      = password_field_tag :password
+    .actions
+      = submit_tag "Log in", :class => 'button'
+      %br 
+      %br
+      %br
+      %br
+      = link_to image_tag("facebook_30x30.png"), "/auth/facebook", id: "sign_in", :class => 'link'
+      
+
+
+    

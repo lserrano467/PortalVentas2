@@ -1,0 +1,25 @@
+%h2 AVAILABLE PRODUCTS
+
+.divTabla
+  %table{:class=> "table"}
+    %thead
+      %tr
+        %td Image
+        %td Tittle
+        %td Price
+        %td Publication Date
+        %td Category
+        %td Options
+
+    %tbody
+      - @features.each do |feature|
+        %tr
+          %th= image_tag feature.image.url(:thumb)
+          %th= feature.tittle
+          %th= feature.price
+          %th= (feature.publicationDate).strftime('%m / %d / %Y')
+          %th= feature.category.name
+          %th= link_to "View", feature_path(feature), :class => "buttonEdit"
+
+  %br
+

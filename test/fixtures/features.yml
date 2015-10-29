@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tittle: MyString
+  price: MyString
+  publicationDate: MyString
+  : 2015-09-12
+  publicationState: MyString
+  : false
+
+two:
+  tittle: MyString
+  price: MyString
+  publicationDate: MyString
+  : 2015-09-12
+  publicationState: MyString
+  : false

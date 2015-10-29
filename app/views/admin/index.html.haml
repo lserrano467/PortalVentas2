@@ -1,0 +1,70 @@
+%h1 Features
+.divTabla
+  %table{:class=> "table"}
+    %thead
+      %tr
+        %td Tittle
+        %td Price
+        %td Publication Date
+        %td Published By
+        %td Category
+        %td Publication State
+        %td Change State
+        %td Reject publication
+
+    %tbody
+      - @features.each do |feature|
+        %tr
+          %th= feature.tittle
+          %th= feature.price
+          %th= (feature.publicationDate).strftime('%m / %d / %Y')
+          %th= feature.user.userName
+          %th= feature.category.name
+          %th= feature.publicationState
+          %th= link_to 'Change', acceptFeature_path(feature),:data => { :confirm => 'Are you sure?' }, :class => "buttonEdit"
+          %th= link_to 'Reject',  new_feature_notification_path(feature), :class => "buttonEdit"
+  %br
+  %br
+
+%h1 Categories
+.divTabla
+  %table{:class=> "table"}
+    %thead
+      %tr
+        %td Tittle
+        %td Category State
+        %td Change Category State
+
+    %tbody
+      - @category.each do |category|
+        %tr
+          %th= category.name
+          %th= category.categoryState
+          %th= link_to 'Change', acceptCategory_path(category),:data => { :confirm => 'Are you sure?' },:class => "buttonEdit"
+  %br
+  %br
+
+%h1 Users
+.divTabla
+  %table{:class=> "table"}
+    %thead
+      %tr
+        %td Name
+        %td Last Name
+        %td User Name
+        %td Email
+        %td Phone
+        %td Usertype
+        %td Change Usertype
+
+    %tbody
+      - @users.each do |user|
+        %tr
+          %th= user.name
+          %th= user.lastName
+          %th= user.userName
+          %th= user.email
+          %th= user.phone
+          %th= user.userType
+          %th= link_to 'Change', updateUserType_path(user),:data => { :confirm => 'Are you sure?' } , :class => "buttonEdit"
+  %br

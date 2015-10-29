@@ -1,0 +1,72 @@
+%p#notice= notice
+%br
+%h5 Profile Information
+
+%table{:class=> "tableInfo"}
+  %thead
+    %tr
+      %td Name
+      %td Lastname
+      %td Username
+      %td Email
+      %td Phone
+      %td Actions
+  %tbody
+    %tr
+      %th= @user.name
+      %th= @user.lastName
+      %th= @user.userName
+      %th= @user.email
+      %th= @user.phone
+      %th= link_to 'Edit', edit_user_path(@user),:class => "buttonEdit"
+%br
+%br
+%br
+%h5 My published products
+%table{:class=> "table"}
+  %thead
+    %tr
+      %td Tittle
+      %td Price
+      %td Publication_Date
+      %td Category
+      %td Update
+      %td Delete
+  %tbody
+  - @features.each do |feature|
+    %tr
+      %th= feature.tittle
+      %th= feature.price
+      %th= (feature.publicationDate).strftime('%m / %d / %Y')
+      %th= feature.category.name
+      %th= link_to 'Edit', edit_feature_path(feature), :class => "buttonEdit"
+      %th= link_to 'Delete', feature, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => "buttonEdit"
+  %thead
+    %td{:colspan => "6"}= link_to 'Add new product', new_feature_path, :class => "differentTD"
+%br
+%br
+%br
+%h5 My rejected products
+
+%table{:class=> "table"}
+  %thead
+    %tr
+      %td Tittle
+      %td Price
+      %td Publication Date
+      %td Category
+      %td Reason
+      %td Update
+      %td Delete
+  %tbody
+  - @featuresR.each do |feature|
+    %tr
+      %th= feature.tittle
+      %th= feature.price
+      %th= (feature.publicationDate).strftime('%m / %d / %Y')
+      %th= feature.category.name
+      %th= @notification.where(feature_id: feature.id).order('id DESC').first.notification
+      %th= link_to 'Edit', edit_feature_path(feature), :class => "buttonEdit"
+      %th= link_to 'Destroy', feature, :method => :delete, :data => { :confirm => 'Are you sure?' } ,:class => "buttonEdit"
+
+%br

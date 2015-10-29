@@ -1,0 +1,63 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title PortalVentas
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+    %link{:href => "bootstrap.min.css", :rel => "stylesheet"}/
+    %link{:href => "carousel.css", :rel => "stylesheet"}/
+  %body
+    / When submit the form, the view rendered will be the index view of our articles resource
+    
+    #user_header
+      .logoDiv
+        = image_tag "logoEncabezado.png"
+      - if current_user      
+        .navbar.navbar-inverse{role: 'navigation'}
+        .navbar-inner
+        .container-fluid
+          %ul.nav.navbar-nav
+            -if current_user.userType == 'Administrador'
+              %li #{link_to "Home", admin_index_path, :class => 'links'} 
+            -else
+              %li #{link_to "Home", user_path(current_user), :class => 'links'} 
+            %li #{link_to "Features", root_path, :class => 'links'} 
+            %li #{link_to "Log Out", logout_path, :class => 'links'}
+        %h6 Welcome, #{current_user.name}
+      -else
+        .navbar.navbar-inverse{role: 'navigation'}
+        .navbar-inner
+        .container-fluid
+          %ul.nav.navbar-nav
+            %li #{link_to "Home", root_path, :class => 'links'} 
+            %li #{link_to "Sign Up", signup_path, :class => 'links'} 
+            %li #{link_to "Log In", login_path, :class => 'links'}
+
+      =form_tag(features_path, :method => "get") do
+        .searchDiv
+          .input-append
+            = text_field_tag :search, params[:search], placeholder: "Search"
+            %button{:type => "submit", :class=> "buttonSearch"} Search
+
+    
+    = yield
+    
+
+#openModal.modalDialog
+  %div
+    %a.close{:href => "#close", :title => "Close"} X
+    %form.form-signin
+      %h2.form-signin-heading Please sign in
+      = form_tag sessions_path do
+        .field
+          = label_tag :email_or_Phone_or_UserNAme
+          %br/
+          = text_field_tag :user
+        .field
+          = label_tag :password
+          %br/
+          = password_field_tag :password
+        .actions
+          = submit_tag "Log In"

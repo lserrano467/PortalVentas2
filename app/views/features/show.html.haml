@@ -1,0 +1,57 @@
+%p#notice= notice
+.row
+  .col-4
+    %h1
+      = @feature.tittle
+    .divProduct
+      %p
+        = image_tag @feature.image.url(:medium)
+      %p
+        %b Likes:
+        = @feature.totalLikes
+      %p
+        %b Category:
+        = @feature.category.name
+      %p
+        %b Price:
+        = @feature.price
+      %p
+        %b Description:
+        = @feature.description
+      %p
+        %b Publication Date:
+        = (@feature.publicationDate).strftime('%m / %d / %Y')
+      %p
+        %b Published by:
+        = @feature.user.userName
+      -if current_user != nil 
+        = link_to 'Add Comment', new_feature_comment_path(@feature), :class => "buttonEdit"
+        = toggle_like_button(@feature, current_user)
+    %br
+    %br
+    = link_to 'Back', features_path, :class => 'buttonBack'
+   
+
+  .col-8
+    %h1 Comentarios 
+    .divComments
+      - @comments.each do |comentario|
+        %p
+          %b Comment:
+          = comentario.comment
+        %p
+          %b Published by:
+          = comentario.user.userName
+          %b    ||
+          %b Date:
+          = (comentario.commentDate).strftime('%m / %d / %Y')
+        %p 
+          -if current_user == comentario.user || current_user == 1
+            = link_to 'Delete', changeCommentState_path(comentario),:data => { :confirm => 'Are you sure?' }, :class => 'buttonDeleteComments'
+        %hr
+
+
+      
+
+
+
